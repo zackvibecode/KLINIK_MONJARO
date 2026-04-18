@@ -178,6 +178,22 @@
       animation: driftGlow 20s infinite alternate linear;
     }
 
+    .hero-container-animated {
+      animation: heroShadowMotion 10s infinite alternate ease-in-out;
+    }
+
+    @keyframes heroShadowMotion {
+      0% {
+        box-shadow: -20px 20px 80px -10px rgba(63, 74, 174, 0.6), 20px -10px 60px -15px rgba(167, 139, 250, 0.3);
+      }
+      50% {
+        box-shadow: 20px 40px 100px -10px rgba(94, 106, 210, 0.5), -20px 10px 70px -10px rgba(63, 74, 174, 0.4);
+      }
+      100% {
+        box-shadow: 0px 50px 120px -15px rgba(79, 91, 196, 0.6), 0px -20px 80px -10px rgba(129, 140, 248, 0.3);
+      }
+    }
+
     #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
     #mobile-menu.open { max-height: 450px; }
 
@@ -234,7 +250,7 @@
   <main class="pt-24 lg:pt-32">
     <!-- Hero Section -->
     <section id="mounjaro" class="px-4 sm:px-6 lg:px-10 pb-16 relative">
-      <div class="max-w-7xl mx-auto relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand-800 via-brand-700 to-indigo-700 p-8 sm:p-12 lg:p-16 shadow-premium-lg fade-up">
+      <div class="max-w-7xl mx-auto relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand-800 via-brand-700 to-indigo-700 p-8 sm:p-12 lg:p-16 shadow-premium-lg hero-container-animated fade-up">
         
         <!-- Subtle Animated Blobs inside Hero -->
         <div class="hero-glow-blob" style="top: -10%; right: -10%;"></div>
