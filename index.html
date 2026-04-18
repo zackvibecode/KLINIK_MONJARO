@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Program pengurusan berat badan Mounjaro terurus di Poliklinik Nur Fatimah. Konsultasi doktor profesional untuk kesihatan optimum anda.">
   <title>Poliklinik Nur Fatimah | Program Mounjaro Terurus</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,17 +15,20 @@
         extend: {
           colors: {
             brand: {
-              50: "#f3f5ff",
-              100: "#e8edff",
-              200: "#d4dcff",
+              50: "#f3f6ff",
+              100: "#e9efff",
+              200: "#d3e0ff",
               500: "#5e6ad2",
               600: "#4f5bc4",
-              700: "#3f4aae"
+              700: "#3f4aae",
+              800: "#323a8c"
             }
           },
           boxShadow: {
-            premium: "0 20px 60px rgba(55, 76, 179, 0.14)",
-            soft: "0 12px 36px rgba(73, 90, 188, 0.10)"
+            'premium-sm': "0 10px 30px -10px rgba(79, 91, 196, 0.08), 0 4px 12px -4px rgba(79, 91, 196, 0.04)",
+            'premium': "0 25px 60px -12px rgba(55, 76, 179, 0.12), 0 10px 25px -10px rgba(55, 76, 179, 0.08)",
+            'premium-lg': "0 40px 80px -15px rgba(55, 76, 179, 0.15), 0 15px 35px -10px rgba(55, 76, 179, 0.1)",
+            'button': "0 12px 24px -6px rgba(79, 91, 196, 0.3), 0 4px 12px -2px rgba(79, 91, 196, 0.1)"
           }
         }
       }
@@ -32,167 +36,194 @@
   </script>
   <style>
     :root {
-      --bg-a: #f7f9ff;
-      --bg-b: #eef2ff;
-      --text-main: #182038;
-      --text-soft: #4f5670;
-      --ring-soft: rgba(125, 141, 234, 0.24);
+      --text-main: #1e293b;
+      --text-soft: #64748b;
+      --brand-primary: #3f4aae;
+      --brand-glow: rgba(94, 106, 210, 0.15);
     }
 
     * { font-family: "Montserrat", sans-serif; }
     body {
-      background: radial-gradient(circle at 10% 0%, #f2f6ff 0%, #f8faff 50%, #f6f8ff 100%);
+      background: #f8faff;
       color: var(--text-main);
+      overflow-x: hidden;
     }
 
-    .material-symbols-outlined {
-      font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
-    }
-
-    .shadow-premium {
-      box-shadow: 0 20px 60px rgba(55, 76, 179, 0.14), 0 4px 14px rgba(31, 43, 107, 0.06);
-    }
-
-    .hover-lift {
-      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-    }
-    .hover-lift:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 44px rgba(56, 77, 182, 0.16);
-    }
-
-    .float-slow {
-      animation: floatSlow 6.8s ease-in-out infinite;
-    }
-    .float-slow.delay-1 { animation-delay: 1.2s; }
-    .float-slow.delay-2 { animation-delay: 2.2s; }
-    .float-slow.delay-3 { animation-delay: 3s; }
-
-    .drift-glow {
-      position: absolute;
-      filter: blur(70px);
-      opacity: 0.28;
+    /* Premium Background Glow Blocks */
+    .bg-glow-container {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
       pointer-events: none;
-      animation: driftGlow 16s ease-in-out infinite alternate;
-      z-index: 0;
     }
-    .drift-glow.g1 {
-      width: 260px;
-      height: 260px;
-      background: radial-gradient(circle, rgba(120, 140, 255, 0.7), rgba(120, 140, 255, 0));
-      top: -80px;
-      right: -60px;
+
+    .bg-glow-blob {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.15;
+      animation: driftGlow 25s infinite alternate ease-in-out;
     }
-    .drift-glow.g2 {
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(138, 186, 255, 0.56), rgba(138, 186, 255, 0));
-      bottom: -120px;
-      left: -100px;
-      animation-delay: 3s;
+
+    .blob-1 {
+      background: radial-gradient(circle, #5e6ad2 0%, transparent 70%);
+      top: -10%;
+      right: -10%;
+      animation-duration: 30s;
     }
-    .drift-glow.g3 {
-      width: 200px;
-      height: 200px;
-      background: radial-gradient(circle, rgba(177, 155, 255, 0.46), rgba(177, 155, 255, 0));
-      bottom: 10%;
-      right: 8%;
-      animation-delay: 6s;
+
+    .blob-2 {
+      background: radial-gradient(circle, #a78bfa 0%, transparent 70%);
+      bottom: -10%;
+      left: -10%;
+      animation-duration: 35s;
+      animation-delay: -5s;
+    }
+
+    .blob-3 {
+      background: radial-gradient(circle, #818cf8 0%, transparent 70%);
+      top: 40%;
+      left: 20%;
+      width: 400px;
+      height: 400px;
+      animation-duration: 40s;
+      animation-delay: -10s;
+      opacity: 0.1;
+    }
+
+    @keyframes driftGlow {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(5%, 10%) scale(1.1); }
+      66% { transform: translate(-5%, 5%) scale(0.9); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+
+    /* Card & Component Refinements */
+    .premium-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 10px 30px -10px rgba(79, 91, 196, 0.08);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .premium-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px -15px rgba(55, 76, 179, 0.12);
+      border-color: rgba(94, 106, 210, 0.2);
+    }
+
+    .btn-premium {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px -2px rgba(79, 91, 196, 0.15);
+    }
+
+    .btn-premium:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 24px -6px rgba(79, 91, 196, 0.3);
+    }
+
+    .btn-premium:active {
+      transform: translateY(-1px) scale(1);
+    }
+
+    /* Floating WhatsApp Polish */
+    .whatsapp-float {
+      animation: floatAction 4s infinite ease-in-out;
+      box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.4), 0 8px 10px -6px rgba(37, 211, 102, 0.2);
+    }
+
+    .whatsapp-float::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: rgba(37, 211, 102, 0.2);
+      z-index: -1;
+      animation: pulseGlow 3s infinite;
+    }
+
+    @keyframes floatAction {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 0.5; }
+      50% { transform: scale(1.2); opacity: 0; }
     }
 
     .fade-up {
       opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
+
     .fade-up.show {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .glow-soft {
+    .hero-glow-blob {
       position: absolute;
-      inset: -20% 10% auto 10%;
-      height: 160px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(191, 207, 255, 0.38), rgba(191, 207, 255, 0));
-      filter: blur(28px);
-      animation: softPulse 7s ease-in-out infinite;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(212, 224, 255, 0.4) 0%, transparent 70%);
+      filter: blur(60px);
       pointer-events: none;
       z-index: 0;
+      animation: driftGlow 20s infinite alternate linear;
     }
 
-    .premium-card {
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid rgba(190, 199, 243, 0.46);
-      backdrop-filter: blur(6px);
-    }
+    #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    #mobile-menu.open { max-height: 450px; }
 
-    .btn-premium {
-      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-    }
-    .btn-premium:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 34px rgba(66, 86, 196, 0.26);
-    }
-
-    #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-    #mobile-menu.open { max-height: 420px; }
-
-    @keyframes floatSlow {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-7px); }
-    }
-    @keyframes driftGlow {
-      0% { transform: translate3d(0, 0, 0) scale(1); }
-      50% { transform: translate3d(16px, -10px, 0) scale(1.04); }
-      100% { transform: translate3d(-12px, 10px, 0) scale(0.98); }
-    }
-    @keyframes softPulse {
-      0%, 100% { opacity: 0.34; transform: scale(1); }
-      50% { opacity: 0.52; transform: scale(1.03); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .float-slow, .drift-glow, .glow-soft { animation: none !important; }
-      .fade-up { opacity: 1; transform: none; transition: none; }
-      .hover-lift, .btn-premium { transition: none; }
-      .hover-lift:hover, .btn-premium:hover { transform: none; box-shadow: none; }
+    .material-symbols-outlined {
+      font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
     }
   </style>
 </head>
-<body class="antialiased overflow-x-hidden">
+<body class="antialiased">
 
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-brand-100/70">
+  <div class="bg-glow-container">
+    <div class="bg-glow-blob blob-1"></div>
+    <div class="bg-glow-blob blob-2"></div>
+    <div class="bg-glow-blob blob-3"></div>
+  </div>
+
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/70 backdrop-blur-2xl border-b border-slate-200/50">
     <div class="max-w-7xl mx-auto px-5 sm:px-7 py-4 flex items-center justify-between">
-      <a href="#" class="text-sm sm:text-base font-extrabold leading-tight tracking-tight">
+      <a href="#" class="text-sm sm:text-base font-extrabold leading-tight tracking-tight text-slate-900">
         Poliklinik <span class="text-brand-600">Nur Fatimah</span>
       </a>
-      <div class="hidden md:flex items-center gap-7 text-xs font-bold uppercase tracking-wide text-slate-600">
+      <div class="hidden md:flex items-center gap-8 text-[11px] font-bold uppercase tracking-widest text-slate-500">
         <a href="#mounjaro" class="text-brand-600 border-b-2 border-brand-600 pb-1">Mounjaro</a>
         <a href="#approach" class="hover:text-brand-600 transition-colors">Pendekatan</a>
         <a href="#success" class="hover:text-brand-600 transition-colors">Testimoni</a>
         <a href="#faq" class="hover:text-brand-600 transition-colors">FAQ</a>
       </div>
-      <div class="flex items-center gap-3">
-        <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-2 bg-brand-600 text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wide btn-premium shadow-soft">
+      <div class="flex items-center gap-4">
+        <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" class="hidden sm:inline-flex items-center gap-2 bg-brand-600 hover:bg-brand-700 text-white px-6 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider btn-premium shadow-button">
           <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          WhatsApp Kami
+        WhatsApp Kami
         </a>
-        <button id="hamburger" class="md:hidden p-2 rounded-lg hover:bg-slate-100" aria-label="Menu">
+        <button id="hamburger" class="md:hidden p-2 rounded-xl hover:bg-slate-100 transition-colors" aria-label="Menu">
           <span id="h1" class="block w-5 h-0.5 bg-slate-700 mb-1 transition-all"></span>
           <span id="h2" class="block w-5 h-0.5 bg-slate-700 mb-1 transition-all"></span>
           <span id="h3" class="block w-5 h-0.5 bg-slate-700 transition-all"></span>
         </button>
       </div>
     </div>
-    <div id="mobile-menu" class="md:hidden bg-white/95 border-t border-slate-100">
-      <div class="p-4 flex flex-col gap-2 text-sm font-semibold">
-        <a href="#mounjaro" onclick="closeMenu()" class="p-3 rounded-xl bg-brand-50 text-brand-700">Mounjaro</a>
-        <a href="#approach" onclick="closeMenu()" class="p-3 rounded-xl text-slate-700 hover:bg-slate-50">Pendekatan</a>
-        <a href="#success" onclick="closeMenu()" class="p-3 rounded-xl text-slate-700 hover:bg-slate-50">Testimoni</a>
-        <a href="#faq" onclick="closeMenu()" class="p-3 rounded-xl text-slate-700 hover:bg-slate-50">FAQ</a>
-        <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" class="mt-1 flex items-center justify-center gap-2 bg-brand-600 text-white p-3 rounded-full btn-premium">
+    <div id="mobile-menu" class="md:hidden bg-white/90 backdrop-blur-2xl border-t border-slate-100 overflow-hidden">
+      <div class="px-5 py-6 flex flex-col gap-3 font-semibold text-slate-800">
+        <a href="#mounjaro" onclick="closeMenu()" class="p-3.5 rounded-2xl bg-brand-50 text-brand-700 flex justify-between items-center italic">Mounjaro <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+        <a href="#approach" onclick="closeMenu()" class="p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">Pendekatan</a>
+        <a href="#success" onclick="closeMenu()" class="p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">Testimoni</a>
+        <a href="#faq" onclick="closeMenu()" class="p-3.5 rounded-2xl hover:bg-slate-50 transition-colors">FAQ</a>
+        <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" class="mt-2 flex items-center justify-center gap-2 bg-brand-600 text-white p-4 rounded-full btn-premium shadow-button font-bold text-sm uppercase tracking-wider">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
           WhatsApp Sekarang
         </a>
@@ -200,56 +231,64 @@
     </div>
   </nav>
 
-  <main class="pt-24">
-    <section id="mounjaro" class="px-4 sm:px-6 md:px-8 lg:px-10 pb-12 sm:pb-16 relative">
-      <div class="max-w-7xl mx-auto relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-700 via-brand-600 to-[#596bcc] p-6 sm:p-10 lg:p-14 shadow-premium fade-up">
-        <div class="drift-glow g1"></div>
-        <div class="drift-glow g2"></div>
-        <div class="drift-glow g3"></div>
-        <div class="relative z-10 grid md:grid-cols-2 gap-9 md:gap-12 items-center">
-          <div class="space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
-            <div class="inline-flex items-center gap-2 rounded-full bg-white/15 border border-white/30 px-4 py-2 text-white text-[11px] font-bold uppercase tracking-wider">
-              <span class="material-symbols-outlined text-sm" style='font-variation-settings:"FILL" 1'>verified</span>
-              Program Perubatan Berdaftar
+  <main class="pt-24 lg:pt-32">
+    <!-- Hero Section -->
+    <section id="mounjaro" class="px-4 sm:px-6 lg:px-10 pb-16 relative">
+      <div class="max-w-7xl mx-auto relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-brand-800 via-brand-700 to-indigo-700 p-8 sm:p-12 lg:p-16 shadow-premium-lg fade-up">
+        
+        <!-- Subtle Animated Blobs inside Hero -->
+        <div class="hero-glow-blob" style="top: -10%; right: -10%;"></div>
+        <div class="hero-glow-blob" style="bottom: -20%; left: -10%; animation-delay: -5s;"></div>
+        
+        <div class="relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div class="space-y-8 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <div class="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 text-white text-[11px] font-extrabold uppercase tracking-[0.15em]">
+              <span class="material-symbols-outlined text-sm leading-none" style='font-variation-settings:"FILL" 1'>verified</span>
+              Klinik Perubatan Berdaftar
             </div>
-            <h1 class="text-white text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-[1.1]">
-              Program Pengurusan Berat Badan Mounjaro Yang <span class="text-brand-200">Dipantau Doktor</span>
+            <h1 class="text-white text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-[1.05] tracking-tight">
+              Program Pengurusan <br class="hidden sm:block"> Berat Badan <span class="text-brand-200">Terurus</span>
             </h1>
-            <p class="text-white/85 text-sm sm:text-base leading-relaxed max-w-xl">
-              Rawatan disusun secara klinikal dengan konsultasi diperlukan terlebih dahulu, tertakluk kepada penilaian doktor, dan bergantung kepada kesesuaian individu.
+            <p class="text-white/80 text-base sm:text-lg leading-relaxed max-w-xl font-medium">
+              Pendekatan klinikal profesional untuk membantu anda mencapai berat badan ideal dengan selamat di bawah seliaan doktor bertauliah.
             </p>
-            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-1 w-full sm:w-auto">
-              <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" class="btn-premium flex items-center justify-center gap-2 bg-white text-brand-700 font-bold px-6 py-3.5 rounded-full shadow-soft">
+            <div class="flex flex-col sm:flex-row gap-4 pt-2 w-full sm:w-auto">
+              <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" class="btn-premium flex items-center justify-center gap-3 bg-white text-brand-800 font-extrabold px-8 py-4 rounded-full shadow-premium">
                 <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
                 Semak Kelayakan
               </a>
-              <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" class="btn-premium flex items-center justify-center gap-2 bg-white/12 border border-white/35 text-white font-bold px-6 py-3.5 rounded-full backdrop-blur-sm">
+              <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" class="btn-premium flex items-center justify-center gap-2 bg-white/10 border border-white/20 text-white font-bold px-8 py-4 rounded-full backdrop-blur-md">
                 WhatsApp Klinik
               </a>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
-              <div class="premium-card rounded-xl px-3 py-2 text-center text-[11px] text-slate-600 font-semibold float-slow">Konsultasi Doktor</div>
-              <div class="premium-card rounded-xl px-3 py-2 text-center text-[11px] text-slate-600 font-semibold float-slow delay-1">Klinik Berdaftar</div>
-              <div class="premium-card rounded-xl px-3 py-2 text-center text-[11px] text-slate-600 font-semibold float-slow delay-2">Program Dipantau</div>
-              <div class="premium-card rounded-xl px-3 py-2 text-center text-[11px] text-slate-600 font-semibold float-slow delay-3">Pelan Lebih Tersusun</div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 pt-4 w-full">
+              <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl px-4 py-3 text-center text-[10px] sm:text-[11px] text-white/90 font-bold uppercase tracking-widest">Konsultasi <br> Doktor</div>
+              <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl px-4 py-3 text-center text-[10px] sm:text-[11px] text-white/90 font-bold uppercase tracking-widest">Klinik <br> Berdaftar</div>
+              <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl px-4 py-3 text-center text-[10px] sm:text-[11px] text-white/90 font-bold uppercase tracking-widest">Program <br> Dipantau</div>
+              <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl px-4 py-3 text-center text-[10px] sm:text-[11px] text-white/90 font-bold uppercase tracking-widest">Pelan <br> Tersusun</div>
             </div>
           </div>
-          <div class="relative">
-            <div class="rounded-3xl overflow-hidden border border-white/30 shadow-premium">
-              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5FNeGtWMNWp85MIeO-GVBwfyj73UXYGjPGtGXr5cD5pE9D2Y0zuAHTFeh_J8B5ri_FJCO3tOwI8mVFEAS25hvRN4MrVZWUDgNR4kzVVu6OA75TYBmWZQcZiScEMbw0VJho9ENi8X1QpJGCErqMTlhY8LOvpaEYIbDrcZl5W5T8QrLbp-rZPwfETu0KSg-9F1MMsR7J4YATsM4W91Dc59jG9kHJKESRDjlfEfdJb0x2yZXaCHuMKkyM4jnvhkWcEr3x0HNUe1DvKI" alt="Doktor di klinik" class="w-full h-64 sm:h-80 lg:h-[420px] object-cover">
+          <div class="relative mt-8 lg:mt-0">
+            <div class="rounded-[2rem] overflow-hidden border-4 border-white/10 shadow-premium-lg">
+              <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5FNeGtWMNWp85MIeO-GVBwfyj73UXYGjPGtGXr5cD5pE9D2Y0zuAHTFeh_J8B5ri_FJCO3tOwI8mVFEAS25hvRN4MrVZWUDgNR4kzVVu6OA75TYBmWZQcZiScEMbw0VJho9ENi8X1QpJGCErqMTlhY8LOvpaEYIbDrcZl5W5T8QrLbp-rZPwfETu0KSg-9F1MMsR7J4YATsM4W91Dc59jG9kHJKESRDjlfEfdJb0x2yZXaCHuMKkyM4jnvhkWcEr3x0HNUe1DvKI" alt="Doktor profesional di Poliklinik Nur Fatimah" class="w-full h-80 sm:h-[480px] object-cover hover:scale-105 transition-transform duration-700">
             </div>
-            <div class="hidden md:flex absolute -bottom-5 -left-5 premium-card rounded-2xl px-4 py-3 items-center gap-3 float-slow">
-              <span class="material-symbols-outlined text-brand-600">medical_services</span>
+            <!-- Floating Achievement Cards -->
+            <div class="hidden md:flex absolute -bottom-8 -left-8 premium-card rounded-2xl p-5 items-center gap-4 border-slate-200/50 shadow-premium-lg">
+              <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center">
+                <span class="material-symbols-outlined text-3xl">medical_services</span>
+              </div>
               <div>
-                <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Status</p>
-                <p class="text-xs font-bold">Klinik Berdaftar</p>
+                <p class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-extrabold">Fasiliti</p>
+                <p class="text-sm font-bold text-slate-800">Klinik Berdaftar</p>
               </div>
             </div>
-            <div class="hidden md:flex absolute -top-5 -right-4 premium-card rounded-2xl px-4 py-3 items-center gap-3 float-slow delay-2">
-              <span class="material-symbols-outlined text-emerald-600" style='font-variation-settings:"FILL" 1'>verified_user</span>
+            <div class="hidden md:flex absolute -top-6 -right-6 premium-card rounded-2xl p-5 items-center gap-4 border-slate-200/50 shadow-premium-lg">
+              <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                <span class="material-symbols-outlined text-3xl" style='font-variation-settings:"FILL" 1'>verified_user</span>
+              </div>
               <div>
-                <p class="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Program</p>
-                <p class="text-xs font-bold">Dipantau Doktor</p>
+                <p class="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-extrabold">Program</p>
+                <p class="text-sm font-bold text-slate-800">Dipantau Doktor</p>
               </div>
             </div>
           </div>
@@ -257,193 +296,177 @@
       </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-14 sm:py-20 fade-up relative overflow-hidden">
-      <div class="drift-glow g2 -z-10"></div>
-      <div class="text-center mb-9 sm:mb-12">
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">Adakah Anda Mengalami Cabaran Ini?</h2>
-        <p class="text-slate-500 mt-3 max-w-2xl mx-auto text-sm sm:text-base">Kami faham isu berat badan memerlukan pendekatan klinikal yang teratur, selamat, dan berfasa.</p>
+    <!-- Challenges Section -->
+    <section class="max-w-7xl mx-auto px-5 sm:px-7 py-20 lg:py-32 fade-up">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">Adakah Anda Mengalami Cabaran Ini?</h2>
+        <div class="w-20 h-1.5 bg-brand-600 mx-auto mt-6 rounded-full"></div>
+        <p class="text-slate-500 mt-6 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">Isu berat badan memerlukan pendekatan klinikal yang selamat, teratur, dan berfasa mengikut sains perubatan.</p>
       </div>
-      <div class="grid sm:grid-cols-3 gap-5">
-        <article class="premium-card rounded-3xl p-6 hover-lift shadow-sm">
-          <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-500 flex items-center justify-center mb-4">
-            <span class="material-symbols-outlined">restaurant_menu</span>
+      <div class="grid sm:grid-cols-3 gap-8">
+        <article class="premium-card rounded-[2.5rem] p-8 lg:p-10 border-slate-100">
+          <div class="w-16 h-16 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center mb-8 shadow-sm">
+            <span class="material-symbols-outlined text-4xl">restaurant_menu</span>
           </div>
-          <h3 class="font-bold text-lg mb-2">Sukar Kawal Selera</h3>
-          <p class="text-sm text-slate-600 leading-relaxed">Rasa lapar berterusan walaupun anda sudah cuba kawal pengambilan makanan.</p>
+          <h3 class="font-bold text-xl mb-4 text-slate-800">Sukar Kawal Selera</h3>
+          <p class="text-slate-500 leading-relaxed">Rasa lapar yang berterusan walaupun sudah cuba mengawal pengambilan makanan secara manual.</p>
         </article>
-        <article class="premium-card rounded-3xl p-6 hover-lift shadow-sm">
-          <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center mb-4">
-            <span class="material-symbols-outlined">trending_down</span>
+        <article class="premium-card rounded-[2.5rem] p-8 lg:p-10 border-slate-100">
+          <div class="w-16 h-16 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center mb-8 shadow-sm">
+            <span class="material-symbols-outlined text-4xl">trending_down</span>
           </div>
-          <h3 class="font-bold text-lg mb-2">Kemajuan Perlahan</h3>
-          <p class="text-sm text-slate-600 leading-relaxed">Sudah diet dan bersenam, tetapi hasil penurunan berat masih tidak konsisten.</p>
+          <h3 class="font-bold text-xl mb-4 text-slate-800">Kemajuan Perlahan</h3>
+          <p class="text-slate-500 leading-relaxed">Sudah melakukan pelbagai diet namun hasil penurunan berat masih tidak konsisten atau statik.</p>
         </article>
-        <article class="premium-card rounded-3xl p-6 hover-lift shadow-sm">
-          <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-500 flex items-center justify-center mb-4">
-            <span class="material-symbols-outlined">history</span>
+        <article class="premium-card rounded-[2.5rem] p-8 lg:p-10 border-slate-100">
+          <div class="w-16 h-16 rounded-2xl bg-indigo-50 text-indigo-500 flex items-center justify-center mb-8 shadow-sm">
+            <span class="material-symbols-outlined text-4xl">health_metrics</span>
           </div>
-          <h3 class="font-bold text-lg mb-2">Kesan Yo-Yo</h3>
-          <p class="text-sm text-slate-600 leading-relaxed">Berat turun seketika dan naik semula tanpa pelan klinikal yang berterusan.</p>
+          <h3 class="font-bold text-xl mb-4 text-slate-800">Kesan Yo-Yo</h3>
+          <p class="text-slate-500 leading-relaxed">Berat turun seketika dan naik semula tanpa adanya pelan klinikal yang berpanjangan dan stabil.</p>
         </article>
       </div>
     </section>
 
-    <section id="approach" class="max-w-7xl mx-auto px-4 sm:px-6 pb-14 sm:pb-20 fade-up">
-      <div class="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-[#f8faff] to-[#eef3ff] border border-brand-100/70 p-6 sm:p-10 lg:p-14">
-        <div class="drift-glow g1"></div>
-        <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center relative z-10">
+    <!-- Approach Section -->
+    <section id="approach" class="max-w-7xl mx-auto px-5 sm:px-7 pb-20 lg:pb-32 fade-up">
+      <div class="relative overflow-hidden rounded-[3rem] bg-white border border-slate-200/60 p-8 sm:p-12 lg:p-20 shadow-premium">
+        <!-- Glow inside container -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand-100/30 blur-[100px] pointer-events-none"></div>
+        
+        <div class="grid lg:grid-cols-2 gap-16 items-center relative z-10">
           <div class="text-center lg:text-left">
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight mb-4">Pendekatan Saintifik, Selamat dan Terurus</h2>
-            <p class="text-slate-600 leading-relaxed text-sm sm:text-base mb-6">
-              Program kami dibina untuk membantu anda mencapai sasaran kesihatan dengan pemantauan berkala serta keputusan rawatan yang dibuat bersama doktor.
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-8 text-slate-900 leading-tight">Pendekatan Saintifik & <br> Selamat Terurus</h2>
+            <p class="text-slate-500 leading-relaxed text-base sm:text-lg mb-10 max-w-xl mx-auto lg:mx-0">
+              Program kami disusun untuk membantu anda mencapai sasaran kesihatan dengan pemantauan doktor yang berpengalaman.
             </p>
-            <ul class="space-y-4 text-sm sm:text-base text-left">
-              <li class="premium-card rounded-2xl p-4 hover-lift"><strong>Konsultasi Mendalam:</strong> penilaian sejarah kesihatan, rutin harian dan sasaran individu.</li>
-              <li class="premium-card rounded-2xl p-4 hover-lift"><strong>Pelan Berfasa:</strong> dos dan tindak balas dipantau dari semasa ke semasa.</li>
-              <li class="premium-card rounded-2xl p-4 hover-lift"><strong>Tindak Susulan:</strong> kemajuan dipantau secara berkala bergantung kepada kesesuaian individu.</li>
-            </ul>
+            <div class="space-y-5">
+              <div class="premium-card rounded-2xl p-5 flex items-start gap-4 text-left border-slate-100">
+                <span class="material-symbols-outlined text-brand-600 bg-brand-50 p-2 rounded-xl">medical_information</span>
+                <div>
+                    <h4 class="font-bold text-slate-800 mb-1 leading-none">Konsultasi Mendalam</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">Penilaian sejarah kesihatan, rutin harian dan sasaran secara holistik.</p>
+                </div>
+              </div>
+              <div class="premium-card rounded-2xl p-5 flex items-start gap-4 text-left border-slate-100">
+                <span class="material-symbols-outlined text-brand-600 bg-brand-50 p-2 rounded-xl">timeline</span>
+                <div>
+                    <h4 class="font-bold text-slate-800 mb-1 leading-none">Pelan Berfasa</h4>
+                    <p class="text-sm text-slate-500 leading-relaxed">Dos dan tindak balas badan dipantau dengan teliti dari masa ke semasa.</p>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="relative">
-            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFPMviN5f2pFe_rR43Jy5EzsecHGvH6WjHOXVem7HZ31q59wItXCFjweA7p3Kcu8JfyiEraEntD8KOKOyX_KmSECQgee5-5-ZxGO8_EQYa4h3Kq82gt6Pn-j67ze5qOaiEraT0tEGppISx8iFqbVS0Fqjgw36v6YOI1ZBu_yiNeMnhoFl6FYUl1Vn2SC9LLaijTZnVqhcJ6P4xujT3iF-UQh_g5e5RmBfdAT3nCIvlpW2lQUIYgrJ1-3NlRRD69tP767VWEdHkEoU" alt="Pemeriksaan klinikal" class="w-full h-64 sm:h-80 lg:h-[430px] object-cover rounded-3xl shadow-premium">
-            <div class="absolute right-4 bottom-4 premium-card rounded-2xl px-4 py-3 max-w-[220px] float-slow delay-1">
-              <p class="text-brand-700 font-extrabold text-2xl">Berfasa</p>
-              <p class="text-xs text-slate-600 leading-relaxed">Pelan rawatan disesuaikan mengikut respons badan dan penilaian doktor.</p>
+            <div class="rounded-[2.5rem] overflow-hidden shadow-premium-lg border-2 border-slate-100">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBFPMviN5f2pFe_rR43Jy5EzsecHGvH6WjHOXVem7HZ31q59wItXCFjweA7p3Kcu8JfyiEraEntD8KOKOyX_KmSECQgee5-5-ZxGO8_EQYa4h3Kq82gt6Pn-j67ze5qOaiEraT0tEGppISx8iFqbVS0Fqjgw36v6YOI1ZBu_yiNeMnhoFl6FYUl1Vn2SC9LLaijTZnVqhcJ6P4xujT3iF-UQh_g5e5RmBfdAT3nCIvlpW2lQUIYgrJ1-3NlRRD69tP767VWEdHkEoU" alt="Pemeriksaan kesihatan di Poliklinik Nur Fatimah" class="w-full h-[450px] object-cover">
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 pb-14 sm:pb-20 fade-up">
-      <div class="text-center mb-8 sm:mb-11">
-        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold">Nilai Program di Poliklinik Nur Fatimah</h2>
-        <p class="text-slate-500 mt-3 text-sm sm:text-base">Setiap komponen disusun untuk keselamatan, ketelusan, dan pemantauan berterusan.</p>
+    <!-- Values Section -->
+    <section class="max-w-7xl mx-auto px-5 sm:px-7 pb-20 lg:pb-32 fade-up">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900">Nilai Program Eksklusif</h2>
+        <div class="w-20 h-1.5 bg-brand-600 mx-auto mt-6 rounded-full"></div>
       </div>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-        <article class="premium-card rounded-3xl p-5 sm:p-6 hover-lift">
-          <span class="material-symbols-outlined text-brand-600 text-3xl mb-3 block">stethoscope</span>
-          <h3 class="font-bold mb-2 text-sm sm:text-base">Saringan Kesihatan</h3>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Pemeriksaan awal sebelum rawatan dimulakan.</p>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <article class="premium-card rounded-3xl p-8 flex flex-col items-center text-center border-slate-100">
+          <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-3xl">stethoscope</span>
+          </div>
+          <h3 class="font-bold mb-3 text-slate-800">Saringan Klinikal</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">Pemeriksaan awal wajib sebelum rawatan bermula.</p>
         </article>
-        <article class="premium-card rounded-3xl p-5 sm:p-6 hover-lift">
-          <span class="material-symbols-outlined text-brand-600 text-3xl mb-3 block">medication_liquid</span>
-          <h3 class="font-bold mb-2 text-sm sm:text-base">Pengurusan Ubat</h3>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Preskripsi tertakluk kepada penilaian doktor.</p>
+        <article class="premium-card rounded-3xl p-8 flex flex-col items-center text-center border-slate-100">
+          <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-3xl">medication_liquid</span>
+          </div>
+          <h3 class="font-bold mb-3 text-slate-800">Ubat Berdaftar</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">Preskripsi dikawal selia mengikut standard KKM.</p>
         </article>
-        <article class="premium-card rounded-3xl p-5 sm:p-6 hover-lift">
-          <span class="material-symbols-outlined text-brand-600 text-3xl mb-3 block">monitoring</span>
-          <h3 class="font-bold mb-2 text-sm sm:text-base">Review Berkala</h3>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Pemantauan progres dan penyesuaian pelan.</p>
+        <article class="premium-card rounded-3xl p-8 flex flex-col items-center text-center border-slate-100">
+          <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-3xl">monitoring</span>
+          </div>
+          <h3 class="font-bold mb-3 text-slate-800">Review Berkala</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">Pemantauan progres badan setiap fasa rawatan.</p>
         </article>
-        <article class="premium-card rounded-3xl p-5 sm:p-6 hover-lift">
-          <span class="material-symbols-outlined text-brand-600 text-3xl mb-3 block">support_agent</span>
-          <h3 class="font-bold mb-2 text-sm sm:text-base">Sokongan WhatsApp</h3>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">Mudah hubungi klinik untuk pertanyaan lanjut.</p>
+        <article class="premium-card rounded-3xl p-8 flex flex-col items-center text-center border-slate-100">
+          <div class="w-14 h-14 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mb-6">
+            <span class="material-symbols-outlined text-3xl">support_agent</span>
+          </div>
+          <h3 class="font-bold mb-3 text-slate-800">Personal Care</h3>
+          <p class="text-sm text-slate-500 leading-relaxed">Talian WhatsApp khas untuk sebarang pertanyaan.</p>
         </article>
       </div>
     </section>
 
-    <section class="bg-white/60 py-14 sm:py-20 border-y border-brand-100/60 fade-up">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-9 text-center sm:text-left items-center sm:items-end">
-          <div>
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold">Bagaimana Proses Bermula</h2>
-            <p class="text-slate-500 mt-2 text-sm sm:text-base">Empat langkah mudah untuk memulakan perjalanan yang lebih tersusun.</p>
-          </div>
-          <span class="inline-flex px-4 py-2 rounded-full bg-brand-50 text-brand-700 text-xs font-bold uppercase tracking-wider border border-brand-200">4 Langkah</span>
-        </div>
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-          <article class="premium-card rounded-3xl p-5 hover-lift"><div class="w-10 h-10 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold mb-3 shadow-soft">1</div><h3 class="font-bold mb-2">Hubungi Klinik</h3><p class="text-xs sm:text-sm text-slate-600">Klik WhatsApp untuk tetapkan konsultasi.</p></article>
-          <article class="premium-card rounded-3xl p-5 hover-lift"><div class="w-10 h-10 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold mb-3 shadow-soft">2</div><h3 class="font-bold mb-2">Konsultasi</h3><p class="text-xs sm:text-sm text-slate-600">Doktor menilai kesesuaian rawatan anda.</p></article>
-          <article class="premium-card rounded-3xl p-5 hover-lift"><div class="w-10 h-10 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold mb-3 shadow-soft">3</div><h3 class="font-bold mb-2">Pelan Rawatan</h3><p class="text-xs sm:text-sm text-slate-600">Pelan disusun mengikut keperluan kesihatan.</p></article>
-          <article class="premium-card rounded-3xl p-5 hover-lift"><div class="w-10 h-10 rounded-full bg-brand-600 text-white flex items-center justify-center font-bold mb-3 shadow-soft">4</div><h3 class="font-bold mb-2">Pemantauan</h3><p class="text-xs sm:text-sm text-slate-600">Review berkala untuk hasil yang lebih konsisten.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section id="success" class="max-w-7xl mx-auto px-4 sm:px-6 py-14 sm:py-20 fade-up">
-      <div class="grid lg:grid-cols-2 gap-9 lg:gap-14">
-        <div class="text-center lg:text-left">
-          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6">Maklum Balas Pesakit</h2>
-          <div class="space-y-4">
-            <article class="premium-card rounded-3xl p-6 hover-lift">
-              <p class="text-slate-700 leading-relaxed text-sm sm:text-base">"Saya lebih yakin sebab setiap langkah diterangkan dengan jelas oleh doktor. Program rasa teratur dan mudah diikuti."</p>
-              <p class="mt-4 text-xs uppercase tracking-wider text-slate-400 font-semibold">Pesakit Program</p>
-            </article>
-            <article class="premium-card rounded-3xl p-6 hover-lift">
-              <p class="text-slate-700 leading-relaxed text-sm sm:text-base">"Konsultasi awal sangat membantu untuk faham sama ada rawatan ini sesuai untuk saya. Saya suka pendekatan yang profesional."</p>
-              <p class="mt-4 text-xs uppercase tracking-wider text-slate-400 font-semibold">Pesakit Program</p>
-            </article>
-          </div>
-        </div>
-        <div id="faq" class="text-center lg:text-left">
-          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold mb-6 mt-12 lg:mt-0">Soalan Lazim (FAQ)</h2>
-          <div class="space-y-3">
-            <details class="premium-card rounded-2xl overflow-hidden hover-lift" open>
-              <summary class="cursor-pointer list-none p-5 font-bold text-sm sm:text-base flex justify-between items-center gap-3">Adakah semua orang boleh memulakan program ini?<span class="material-symbols-outlined">expand_more</span></summary>
-              <div class="px-5 pb-5 text-sm text-slate-600 leading-relaxed">Tidak semestinya. Program tertakluk kepada penilaian doktor dan sejarah kesihatan anda.</div>
-            </details>
-            <details class="premium-card rounded-2xl overflow-hidden hover-lift">
-              <summary class="cursor-pointer list-none p-5 font-bold text-sm sm:text-base flex justify-between items-center gap-3">Adakah konsultasi diperlukan dahulu?<span class="material-symbols-outlined">expand_more</span></summary>
-              <div class="px-5 pb-5 text-sm text-slate-600 leading-relaxed">Ya, konsultasi diperlukan terlebih dahulu sebelum cadangan rawatan dibuat.</div>
-            </details>
-            <details class="premium-card rounded-2xl overflow-hidden hover-lift">
-              <summary class="cursor-pointer list-none p-5 font-bold text-sm sm:text-base flex justify-between items-center gap-3">Adakah hasil sama untuk semua individu?<span class="material-symbols-outlined">expand_more</span></summary>
-              <div class="px-5 pb-5 text-sm text-slate-600 leading-relaxed">Hasil bergantung kepada kesesuaian individu, pematuhan pelan, serta faktor kesihatan semasa.</div>
-            </details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="px-4 sm:px-6 pb-16 sm:pb-20 fade-up relative">
-      <div class="max-w-7xl mx-auto relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-700 via-brand-600 to-[#5d72d6] p-8 sm:p-12 lg:p-16 text-center shadow-premium">
-        <div class="glow-soft"></div>
-        <div class="drift-glow g2"></div>
-        <div class="relative z-10 max-w-3xl mx-auto">
-          <h2 class="text-white text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">Sedia Untuk Mula Dengan Penilaian Doktor?</h2>
-          <p class="text-white/85 mt-4 sm:mt-5 text-sm sm:text-base leading-relaxed">Hubungi Poliklinik Nur Fatimah untuk semakan awal. Setiap pelan rawatan adalah khusus dan bergantung kepada kesesuaian individu.</p>
-          <div class="mt-7 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-            <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" class="btn-premium flex items-center justify-center gap-2 bg-white text-brand-700 font-bold rounded-full px-7 py-3.5 shadow-soft">
-              <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-              Daftar Temujanji
+    <!-- CTA Section Bottom -->
+    <section class="px-5 sm:px-7 pb-20 lg:pb-32 fade-up">
+      <div class="max-w-7xl mx-auto relative overflow-hidden rounded-[3rem] bg-gradient-to-br from-brand-800 via-brand-700 to-brand-600 p-10 sm:p-16 lg:p-24 text-center shadow-premium-lg">
+        <div class="hero-glow-blob" style="top: -20%; right: -10%;"></div>
+        <div class="hero-glow-blob" style="bottom: -20%; left: -10%; opacity: 0.2;"></div>
+        
+        <div class="relative z-10 max-w-4xl mx-auto">
+          <h2 class="text-white text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">Mulakan Perubahan Bersama <br class="hidden sm:block"> Poliklinik Nur Fatimah</h2>
+          <p class="text-white/80 mt-8 text-base sm:text-xl leading-relaxed font-medium">Hubungi kami hari ini untuk konsultasi awal dengan doktor secara bersemuka. Pelan rawatan khusus menanti anda.</p>
+          
+          <div class="mt-12 flex flex-col sm:flex-row gap-5 justify-center items-center">
+            <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" class="btn-premium flex items-center justify-center gap-3 bg-white text-brand-800 font-extrabold rounded-full px-10 py-5 text-lg shadow-premium w-full sm:w-auto">
+              <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              Klik Untuk WhatsApp
             </a>
-            <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" class="btn-premium flex items-center justify-center gap-2 border border-white/40 text-white rounded-full px-7 py-3.5 font-bold bg-white/10">
-              WhatsApp 60125001601
-            </a>
+            <p class="text-white/60 text-xs sm:text-sm uppercase tracking-[0.2em] font-bold">Respon Segera Dalam Waktu Operasi</p>
           </div>
-          <p class="text-[11px] uppercase tracking-[0.16em] text-white/60 mt-6">Rawatan tertakluk kepada penilaian doktor</p>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="bg-[#f1f5ff] border-t border-brand-100/70">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
-      <div class="grid md:grid-cols-3 gap-6">
+  <footer class="bg-slate-50 border-t border-slate-200">
+    <div class="max-w-7xl mx-auto px-5 sm:px-7 py-20">
+      <div class="grid md:grid-cols-3 gap-12">
         <div>
-          <h3 class="text-lg font-extrabold text-brand-700">Poliklinik Nur Fatimah</h3>
-          <p class="text-sm text-slate-600 mt-2 leading-relaxed">Taman Langat Utama, Bukit Changgang, Banting, Selangor</p>
-          <p class="text-sm text-slate-600 mt-2">WhatsApp: 60125001601</p>
-        </div>
-        <div>
-          <h4 class="font-bold text-sm text-slate-800 uppercase tracking-wider">Alamat Penuh</h4>
-          <p class="text-sm text-slate-600 mt-2 leading-relaxed">No. 141-G / 141, Jalan LU 2/2, Taman Langat Utama, Bukit Changgang, 42700 Banting, Selangor</p>
-        </div>
-        <div>
-          <h4 class="font-bold text-sm text-slate-800 uppercase tracking-wider">Waktu Operasi</h4>
-          <div class="mt-2 premium-card rounded-2xl p-4 text-sm text-slate-600 leading-relaxed">
-            <p class="font-semibold text-slate-700">Buka setiap hari</p>
-            <p>8:00 pagi - 10:00 malam</p>
-            <p class="text-xs text-slate-400 mt-1">(Boleh dikemaskini dalam kod mengikut waktu semasa klinik)</p>
+          <h3 class="text-xl font-extrabold text-slate-900 border-b-4 border-brand-600 inline-block pb-1 mb-6 uppercase tracking-tight">Klinik Nur Fatimah</h3>
+          <p class="text-slate-500 text-sm leading-relaxed max-w-xs">Pakar kesihatan komuniti anda di Bukit Changgang. Menyediakan perkhidmatan perubatan berkualiti sejak 2012.</p>
+          <div class="mt-8 flex gap-4">
+            <span class="w-10 h-10 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center"><i class="material-symbols-outlined">share</i></span>
+            <span class="w-10 h-10 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center"><i class="material-symbols-outlined">public</i></span>
           </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-slate-800 uppercase tracking-[0.15em] mb-6 text-xs">Lokasi Kami</h4>
+          <p class="text-slate-500 text-sm leading-loose">No. 141-G / 141, Jalan LU 2/2, <br> Taman Langat Utama, Bukit Changgang, <br> 42700 Banting, Selangor</p>
+          <p class="text-brand-600 font-bold mt-4 text-sm">WhatsApp: +60 12-500 1601</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-slate-800 uppercase tracking-[0.15em] mb-6 text-xs">Waktu Operasi</h4>
+          <div class="premium-card rounded-2xl p-6 border-slate-200/50">
+            <p class="font-bold text-slate-900 mb-1">Setiap Hari</p>
+            <p class="text-brand-600 font-extrabold text-xl">8:00 AM - 10:00 PM</p>
+            <div class="mt-4 pt-4 border-t border-slate-100">
+                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest leading-none">Status Semasa</p>
+                <p class="text-emerald-500 font-bold text-sm flex items-center gap-1">● Buka Sekarang</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-16 pt-8 border-t border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em]">
+        <p>© 2026 Poliklinik Nur Fatimah. Hak Cipta Terpelihara.</p>
+        <div class="flex gap-6">
+            <a href="#" class="hover:text-brand-600 transition-colors">Privacy Policy</a>
+            <a href="#" class="hover:text-brand-600 transition-colors">Terms of Service</a>
         </div>
       </div>
     </div>
   </footer>
 
-  <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Poliklinik Nur Fatimah" class="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-[#25D366] text-white shadow-[0_14px_30px_rgba(16,185,129,0.35)] flex items-center justify-center hover:-translate-y-1 transition-transform">
-    <span class="material-symbols-outlined" style='font-variation-settings:"FILL" 1'>chat</span>
+  <!-- WhatsApp Floating Refined -->
+  <a href="https://wa.me/60125001601" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Poliklinik Nur Fatimah" class="fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full bg-[#25D366] text-white flex items-center justify-center whatsapp-float group transition-all duration-300">
+    <svg class="w-8 h-8 fill-current group-hover:scale-110 transition-transform" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
   </a>
 
   <script>
@@ -481,6 +504,7 @@
       if (open && !hamburger.contains(e.target) && !mobileMenu.contains(e.target)) closeMenu();
     });
 
+    // Reveal Animation on Scroll
     const revealElements = document.querySelectorAll(".fade-up");
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -489,7 +513,7 @@
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.18, rootMargin: "0px 0px -40px 0px" });
+    }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
     revealElements.forEach((el) => observer.observe(el));
   </script>
 </body>
